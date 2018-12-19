@@ -20,7 +20,7 @@ func sum(nums []int) (total int) {
 }
 
 func single(sides int) int {
-	return 1 + rand.Intn(sides-1)
+	return 1 + rand.Intn(sides)
 }
 
 func bones(num int, sides int) []int {
