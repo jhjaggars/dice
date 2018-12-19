@@ -1,10 +1,12 @@
-package dice
+package main
 
 import (
 	"encoding/json"
 	"io"
 	"log"
 	"net/http"
+
+	"github.com/jhjaggars/dice/pkg/dice"
 )
 
 type Server struct{}
@@ -17,7 +19,7 @@ func handleError(err error, code int, w http.ResponseWriter) {
 }
 
 func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	d, err := ParseDie(r.FormValue("dice"))
+	d, err := dice.ParseDie(r.FormValue("dice"))
 	if err != nil {
 		handleError(err, 400, w)
 		return
@@ -37,5 +39,6 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var s Server
+	log.Println("Starting server on port 8080")
 	http.ListenAndServe(":8080", s)
 }
