@@ -13,8 +13,9 @@ func main() {
 		panic(err)
 	}
 	defer f.Close()
-	app := iris.New()
+	app := iris.Default()
 	app.Logger().SetOutput(f).SetLevel("info")
+
 	app.Get("/", func(ctx iris.Context) {
 		d, _ := dice.ParseDie(ctx.URLParam("dice"))
 		ctx.JSON(d.Roll())
